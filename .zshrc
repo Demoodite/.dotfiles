@@ -99,16 +99,23 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim="nvim"
+export ANDROID_HOME="~/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+
 alias avd-run="~/Android/Sdk/emulator/emulator -avd Resizable_Experimental_API_33"
 alias adb-forward-v2rayng="~/Android/Sdk/platform-tools/adb forward tcp:10809 tcp:10809;~/Android/Sdk/platform-tools/adb forward tcp:10808 tcp:10808;"
 alias adb-forward-v2rayng-emulator-5554="~/Android/Sdk/platform-tools/adb -s emulator-5554 forward tcp:10809 tcp:10809;~/Android/Sdk/platform-tools/adb -s emulator-5554 forward tcp:10808 tcp:10808;"
 alias adb-forward-v2rayng-waydroid="~/Android/Sdk/platform-tools/adb -s 192.168.240.112:5555 forward tcp:10809 tcp:10809;~/Android/Sdk/platform-tools/adb -s 192.168.240.112:5555 forward tcp:10808 tcp:10808;"
 alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
 alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
-alias adb="~/Android/Sdk/platform-tools/adb"
 alias waydroid-adb-connect="adb connect 192.168.240.112:5555"
 alias conservation-mode-on="echo 1 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
 alias conservation-mode-off="echo 0 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
 alias lotfan="sudo"
 alias "gitmain"="git checkout -f main"
 source ~/.net2
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
