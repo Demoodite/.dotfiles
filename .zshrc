@@ -121,8 +121,8 @@ alias lotfan="sudo"
 alias "gitmain"="git checkout -f main"
 
 # Sharif net2 login
-if [ -e "~/.net2" ]; then
-source ~/.net2
+if [ -e ".net2" ]; then
+    source .net2
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
