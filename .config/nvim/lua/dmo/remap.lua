@@ -38,18 +38,25 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
+-- CodeSnap
+vim.keymap.set("x", "<leader>cc", "<cmd>CodeSnap<cr>")
+vim.keymap.set("x", "<leader>cs", "<cmd>CodeSnapSave<cr>")
+
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
 vim.keymap.set("n", "<F5>", function()
     if vim.bo.filetype == "cpp" then
         vim.cmd("!clang++ %;");
         vim.cmd("!echo \\\\n; ./a.out;");
     end
 end)
+
 vim.keymap.set("n", "<leader><F5>", function()
-        vim.cmd("!make run");
+    vim.cmd("!make run");
 end)
+
 vim.keymap.set("n", "<leader><F8>", function()
-        vim.cmd("!make build");
+    vim.cmd("!make build");
 end)

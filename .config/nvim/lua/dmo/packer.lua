@@ -79,4 +79,7 @@ return require('packer').startup(function(use)
 
     -- vim-glsl
     use('tikhomirov/vim-glsl')
+
+    -- CodeSnap
+    use { 'mistricky/codesnap.nvim', run = 'make' }
 end)
