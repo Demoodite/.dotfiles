@@ -36,7 +36,7 @@ class OpenInKittyAction(GObject.GObject, Nautilus.MenuProvider):
                     "org.freedesktop.systemd1.Manager", None)
 
     def _open_terminal(self, path):
-        cmd = ['kitty']
+        cmd = ['kitty', path]
         child = Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
         if self._systemd:
             # Move new terminal into a dedicated systemd scope to make systemd
