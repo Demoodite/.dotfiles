@@ -39,3 +39,5 @@ Plug 'tpope/vim-commentary'
 map <leader>vd <Action>(ShowHoverInfo)
 map [d <Action>(GotoNextError)
 map ]d <Action>(GotoPreviousError)
+map <leader>pv <Action>(ActivateProjectToolWindow)
+map <leader>pf <Action>(SearchEverywhere)
