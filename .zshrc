@@ -103,7 +103,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
 export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
 alias avd-run="$HOME/Android/Sdk/emulator/emulator -avd Resizable_Experimental_API_33"
 alias adb-forward-v2rayng="$HOME/Android/Sdk/platform-tools/adb forward tcp:10809 tcp:10809;$HOME/Android/Sdk/platform-tools/adb forward tcp:10808 tcp:10808;"
