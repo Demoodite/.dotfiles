@@ -113,6 +113,7 @@ alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
 alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
 alias waydroid-adb-connect="adb connect 192.168.240.112:5555"
 alias icat="kitten icat"
+alias Matrix="unimatrix -s 94 -i"
 
 # Legion conservation mode
 if [ -e "/sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode" ]; then
