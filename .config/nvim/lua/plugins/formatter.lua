@@ -1,6 +1,9 @@
 return {
     {
         "stevearc/conform.nvim",
+        dependencies = {
+            { "zapling/mason-conform.nvim", config = true },
+        },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
         keys = {
@@ -34,6 +37,7 @@ return {
                 lua = { "stylua" },
                 python = { "isort", "black" },
                 javascript = { "prettierd", "prettier", stop_after_first = true },
+                cmake = { "gersemi" },
             },
             formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
         },
