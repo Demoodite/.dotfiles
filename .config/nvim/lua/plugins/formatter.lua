@@ -58,7 +58,10 @@ return {
                 cmake = { "gersemi" },
                 cpp = { "clang-format" },
             },
-            formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
+            formatters = {
+                stylua = { prepend_args = { "--indent-type", "spaces" } },
+                ["clang-format"] = { prepend_args = { "--style={IndentWidth: 4}" } },
+            },
         },
     },
 }
