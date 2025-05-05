@@ -2,7 +2,8 @@ return {
     {
         "stevearc/conform.nvim",
         dependencies = {
-            { "zapling/mason-conform.nvim", config = true },
+            { "zapling/mason-conform.nvim", opts = {} },
+            { "WhoIsSethDaniel/mason-tool-installer.nvim", opts = {} },
         },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
@@ -16,7 +17,24 @@ return {
                 desc = "[F]ormat buffer",
             },
         },
-        config = true,
+        config = function(_, opts)
+            local ensure_installed = {}
+
+            for _, list in pairs(opts.formatters_by_ft) do
+                for _, item in pairs(list) do
+                    if type(item) == "string" then
+                        table.insert(ensure_installed, tostring(item))
+                    end
+                end
+            end
+
+            for item, _ in pairs(opts.formatters) do
+                table.insert(ensure_installed, tostring(item))
+            end
+
+            require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+            require("conform").setup(opts)
+        end,
         opts = {
             notify_on_error = false,
             format_on_save = function(bufnr)
@@ -38,6 +56,7 @@ return {
                 python = { "isort", "black" },
                 javascript = { "prettierd", "prettier", stop_after_first = true },
                 cmake = { "gersemi" },
+                cpp = { "clang-format" },
             },
             formatters = { stylua = { prepend_args = { "--indent-type", "spaces" } } },
         },
