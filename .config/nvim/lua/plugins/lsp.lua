@@ -38,6 +38,9 @@ return {
                     map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
                     map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
+                    map("K", vim.lsp.buf.hover, "Hover", { "n", "x" })
+                    map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", { "n", "x" })
+
                     ---@param client vim.lsp.Client
                     ---@param method vim.lsp.protocol.Method
                     ---@param bufnr? integer some lsp support methods only in specific files
@@ -141,7 +144,8 @@ return {
                 --
                 -- But for many setups, the LSP (`ts_ls`) will work just fine
                 -- ts_ls = {},
-                --
+
+                glsl_analyzer = {},
 
                 lua_ls = {
                     -- cmd = { ... },
