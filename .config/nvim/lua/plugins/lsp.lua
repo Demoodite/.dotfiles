@@ -37,6 +37,7 @@ return {
                     map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
                     map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
                     map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+                    map("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostic float")
 
                     map("K", vim.lsp.buf.hover, "Hover", { "n", "x" })
                     map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", { "n", "x" })
