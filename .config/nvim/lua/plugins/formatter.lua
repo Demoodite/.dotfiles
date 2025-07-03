@@ -57,6 +57,7 @@ return {
                 javascript = { "prettierd", "prettier", stop_after_first = true },
                 cmake = { "gersemi" },
                 cpp = { "clang-format" },
+                c = { "clang-format" },
             },
             formatters = {
                 stylua = { prepend_args = { "--indent-type", "spaces" } },
