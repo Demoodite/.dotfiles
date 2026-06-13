@@ -38,6 +38,8 @@ map <leader>f <Action>(ReformatCode)
 
 map <leader>vd <Action>(ShowHoverInfo)
 map <leader>vD <Action>(ShowIntentionActions)
+map gD <Action>(ReSharperGotoImplementation)
+map gd <Action>(GotoDeclaration)
 map ]d <Action>(GotoNextError)
 map [d <Action>(GotoPreviousError)
 map <leader>pv <Action>(ActivateProjectToolWindow)
