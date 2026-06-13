@@ -1,19 +1,10 @@
 return {
     {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-            library = {
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            },
-        },
-    },
-    {
-        "neovim/nvim-lspconfig",
+        "mason-org/mason-lspconfig.nvim",
+
         dependencies = {
-            { "williamboman/mason.nvim", opts = {} },
-            "williamboman/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            "neovim/nvim-lspconfig",
+            { "mason-org/mason.nvim", opts = {} },
             { "j-hui/fidget.nvim", opts = {} },
             "saghen/blink.cmp",
         },
@@ -42,26 +33,10 @@ return {
                     map("K", vim.lsp.buf.hover, "Hover", { "n", "x" })
                     map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", { "n", "x" })
 
-                    ---@param client vim.lsp.Client
-                    ---@param method vim.lsp.protocol.Method
-                    ---@param bufnr? integer some lsp support methods only in specific files
-                    ---@return boolean
-                    local function client_supports_method(client, method, bufnr)
-                        if vim.fn.has("nvim-0.11") == 1 then
-                            return client:supports_method(method, bufnr)
-                        else
-                            return client.supports_method(method, { bufnr = bufnr })
-                        end
-                    end
-
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
                     if
                         client
-                        and client_supports_method(
-                            client,
-                            vim.lsp.protocol.Methods.textDocument_documentHighlight,
-                            event.buf
-                        )
+                        and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
                     then
                         local highlight_augroup =
                             vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
@@ -88,7 +63,7 @@ return {
 
                     if
                         client
-                        and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
+                        and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
                     then
                         map("<leader>th", function()
                             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -135,51 +110,33 @@ return {
             local servers = {
                 neocmake = {},
                 clangd = {},
-                -- gopls = {},
                 basedpyright = {},
-                -- rust_analyzer = {},
-                -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-                --
-                -- Some languages (like typescript) have entire language plugins that can be useful:
-                --    https://github.com/pmizio/typescript-tools.nvim
-                --
-                -- But for many setups, the LSP (`ts_ls`) will work just fine
-                -- ts_ls = {},
-
                 glsl_analyzer = {},
-
                 lua_ls = {
-                    -- cmd = { ... },
-                    -- filetypes = { ... },
-                    -- capabilities = {},
                     settings = {
                         Lua = {
                             completion = {
                                 callSnippet = "Replace",
                             },
-                            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                            -- diagnostics = { disable = { 'missing-fields' } },
                         },
                     },
                 },
+                phpactor = {},
             }
+
+            for server_name, server_opts in pairs(servers) do
+                server_opts.capabilities =
+                    vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
+                vim.lsp.config(server_name, server_opts)
+            end
 
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
                 "stylua",
             })
-            require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
             require("mason-lspconfig").setup({
-                ensure_installed = {},
-                automatic_installation = false,
-                handlers = {
-                    function(server_name)
-                        local server = servers[server_name] or {}
-                        server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                        vim.lsp.enable(server_name)
-                    end,
-                },
+                ensure_installed = ensure_installed,
             })
         end,
     },
