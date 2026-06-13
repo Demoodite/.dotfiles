@@ -84,11 +84,15 @@ fi
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -x $(which nvim) ]]; then
+    export EDITOR=$(which nvim)
+elif [[ -x $(which vim) ]]; then
+    export EDITOR=$(which vim)
+elif [[ -x $(which vi) ]]; then
+    export EDITOR=$(which vi)
+else 
+    export EDITOR=$(which nano)
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -101,17 +105,19 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
 export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="$PATH:$HOME/.local/bin:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
-alias avd-run="$HOME/Android/Sdk/emulator/emulator -avd Resizable_Experimental_API_33"
-alias adb-forward-v2rayng="$HOME/Android/Sdk/platform-tools/adb forward tcp:10809 tcp:10809;$HOME/Android/Sdk/platform-tools/adb forward tcp:10808 tcp:10808;"
-alias adb-forward-v2rayng-emulator-5554="$HOME/Android/Sdk/platform-tools/adb -s emulator-5554 forward tcp:10809 tcp:10809;$HOME/Android/Sdk/platform-tools/adb -s emulator-5554 forward tcp:10808 tcp:10808;"
-alias adb-forward-v2rayng-waydroid="$HOME/Android/Sdk/platform-tools/adb -s 192.168.240.112:5555 forward tcp:10809 tcp:10809;$HOME/Android/Sdk/platform-tools/adb -s 192.168.240.112:5555 forward tcp:10808 tcp:10808;"
-alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
-alias avd-unlock="rm .android/avd/Resizable_Experimental_API_33.avd/*.lock"
-alias waydroid-adb-connect="adb connect 192.168.240.112:5555"
+export DEFAULT_GATEWAY=$(nmcli -g ip4.gateway device show 2>/dev/null | grep -v '^$' | head -n 1)
+export WAYDROID_IP="192.168.240.112"
+
+alias vim="nvim"
+alias gide="git"
+alias gidemain="git checkout -f main"
+alias set-gnome-proxy-ip="echo -n \"http https socks\" | xargs -d ' ' -I % gsettings set org.gnome.system.proxy.% host"
+alias gnome-proxy-waydroid="set-gnome-proxy-ip $WAYDROID_IP"
+alias gnome-proxy-gateway="set-gnome-proxy-ip $DEFAULT_GATEWAY"
+
+alias waydroid-adb-connect="adb connect ${WAYDROID_IP}:5555"
 alias icat="kitten icat"
 alias Matrix="unimatrix -s 94 -i"
 
@@ -122,15 +128,5 @@ alias conservation-mode-off="echo 0 | sudo tee /sys/devices/pci0000:00/0000:00:1
 fi
 
 alias lotfan="sudo"
-alias "gitmain"="git checkout -f main"
 
-# Sharif net2 login
-if [ -e ".net2" ]; then
-    source .net2
-fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$ANDROID_HOME/platform-tools"
