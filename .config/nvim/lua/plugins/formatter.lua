@@ -40,6 +40,9 @@ return {
                         cmake = { "gersemi" },
                         cpp = { "clang-format" },
                         c = { "clang-format" },
+                        bash = { "shfmt" },
+                        sh = { "shfmt" },
+                        zsh = { "shfmt" },
                     },
                     formatters = {
                         stylua = { prepend_args = { "--indent-type", "spaces" } },

@@ -111,6 +111,9 @@ return {
                 neocmake = {},
                 clangd = {},
                 gopls = {},
+                bashls = {
+                    filetypes = { "sh", "bash", "zsh" },
+                },
                 basedpyright = {},
                 glsl_analyzer = {},
                 lua_ls = {
@@ -124,6 +127,27 @@ return {
                 },
                 phpactor = {},
             }
+
+            vim.filetype.add({
+                filename = {
+                    -- Zsh
+                    [".zshrc"] = "zsh",
+                    [".zshenv"] = "zsh",
+                    [".zprofile"] = "zsh",
+                    [".zlogin"] = "zsh",
+                    [".zlogout"] = "zsh",
+
+                    -- Bash / POSIX sh
+                    [".bashrc"] = "bash",
+                    [".bash_profile"] = "bash",
+                    [".bash_logout"] = "bash",
+                    [".bash_aliases"] = "bash",
+                    [".profile"] = "sh",
+
+                    -- Misc shell-like
+                    [".envrc"] = "bash", -- direnv files
+                },
+            })
 
             for server_name, server_opts in pairs(servers) do
                 server_opts.capabilities =
