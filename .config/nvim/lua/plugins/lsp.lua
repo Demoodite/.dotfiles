@@ -3,8 +3,8 @@ return {
         "mason-org/mason-lspconfig.nvim",
 
         dependencies = {
-            "neovim/nvim-lspconfig",
             { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
             { "j-hui/fidget.nvim", opts = {} },
             "saghen/blink.cmp",
         },
@@ -131,9 +131,6 @@ return {
             end
 
             local ensure_installed = vim.tbl_keys(servers or {})
-            vim.list_extend(ensure_installed, {
-                "stylua",
-            })
 
             require("mason-lspconfig").setup({
                 ensure_installed = ensure_installed,
