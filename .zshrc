@@ -90,7 +90,7 @@ elif [[ -x $(which vim) ]]; then
     export EDITOR=$(which vim)
 elif [[ -x $(which vi) ]]; then
     export EDITOR=$(which vi)
-else 
+else
     export EDITOR=$(which nano)
 fi
 
@@ -105,28 +105,43 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export ANDROID_HOME="$HOME/Android/Sdk"
+alias vim="nvim"
+alias lotfan="sudo"
+alias gide="git"
+alias gidemain="git checkout -f main"
 
 export DEFAULT_GATEWAY=$(nmcli -g ip4.gateway device show 2>/dev/null | grep -v '^$' | head -n 1)
 export WAYDROID_IP="192.168.240.112"
+export PATH="$PATH:$HOME/.local/bin"
 
-alias vim="nvim"
-alias gide="git"
-alias gidemain="git checkout -f main"
 alias set-gnome-proxy-ip="echo -n \"http https socks\" | xargs -d ' ' -I % gsettings set org.gnome.system.proxy.% host"
-alias gnome-proxy-waydroid="set-gnome-proxy-ip $WAYDROID_IP"
 alias gnome-proxy-gateway="set-gnome-proxy-ip $DEFAULT_GATEWAY"
+alias gnome-proxy-waydroid="set-gnome-proxy-ip $WAYDROID_IP"
 
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
 alias waydroid-adb-connect="adb connect ${WAYDROID_IP}:5555"
+
+if [[ -d /usr/local/ps2dev ]]; then
+    export PS2DEV=/usr/local/ps2dev
+    export PS2SDK=$PS2DEV/ps2sdk
+    export GSKIT=$PS2DEV/gsKit
+    export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
+fi
+
 alias icat="kitten icat"
 alias Matrix="unimatrix -s 94 -i"
 
 # Legion conservation mode
 if [ -e "/sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode" ]; then
-alias conservation-mode-on="echo 1 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
-alias conservation-mode-off="echo 0 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
+    alias conservation-mode-on="echo 1 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
+    alias conservation-mode-off="echo 0 | sudo tee /sys/devices/pci0000:00/0000:00:14.3/PNP0C09:00/VPC2004:00/conservation_mode 1>/dev/null"
 fi
 
-alias lotfan="sudo"
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/demoodite/.dart-cli-completion/zsh-config.zsh ]] && . /home/demoodite/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
 
-export PATH="$PATH:$HOME/.local/bin:$ANDROID_HOME/platform-tools"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"
+if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
