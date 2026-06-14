@@ -110,6 +110,7 @@ return {
             local servers = {
                 neocmake = {},
                 clangd = {},
+                gopls = {},
                 basedpyright = {},
                 glsl_analyzer = {},
                 lua_ls = {
