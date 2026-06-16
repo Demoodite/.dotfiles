@@ -22,4 +22,5 @@ opt.inccommand = "split"
 opt.cursorline = true
 opt.scrolloff = 10
 opt.exrc = true
+opt.secure = true
 -- vim: ts=2 sts=2 sw=2 et
