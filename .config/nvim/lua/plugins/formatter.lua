@@ -43,6 +43,7 @@ return {
                         bash = { "shfmt" },
                         sh = { "shfmt" },
                         zsh = { "shfmt" },
+                        ["Makefile"] = { "mbake" },
                     },
                     formatters = {
                         stylua = { prepend_args = { "--indent-type", "spaces" } },
