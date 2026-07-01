@@ -6,16 +6,20 @@ return {
             "nvim-lua/plenary.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
-
                 build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
-
                 cond = function()
                     return vim.fn.executable("make") == 1
                 end,
             },
             { "nvim-telescope/telescope-ui-select.nvim" },
-
             { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+            {
+                "nvim-telescope/telescope-dap.nvim",
+                dependencies = {
+                    "mfussenegger/nvim-dap",
+                    "nvim-treesitter/nvim-treesitter",
+                },
+            },
         },
         config = function()
             require("telescope").setup({
@@ -38,6 +42,7 @@ return {
 
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "ui-select")
+            pcall(require("telescope").load_extension, "dap")
 
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
